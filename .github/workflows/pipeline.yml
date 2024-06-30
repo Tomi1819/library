@@ -50,8 +50,11 @@ jobs:
     needs: run_the_ui_tests
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to production
-        uses: johnbeynon/render-deploy-action@v0.0.8
+      - name: Checkout the code
+        uses: actions/checkout@v4
+      - name: Deploy backend
+        uses: JorgeLNJunior/render-deploy@v1.4.4
         with:
           service-id: ${{ secrets.SERVICE_KEY }}
           api-key: ${{ secrets.RENDER_API_KEY }}
+          wait_deploy: true
