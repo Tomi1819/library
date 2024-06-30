@@ -24,3 +24,24 @@ jobs:
         run: npm run test:unit
       - name: Display the username
         run: echo 'tomi1819'
+
+  run_the_ui_tests:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+      - name: Use Node.js 18x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name: Install playwright browsers
+        run: npx playwright install
+      - name: Start the application
+        run: npm run start &
+      - name: Run the UI tests
+        run: npm run test:ui
